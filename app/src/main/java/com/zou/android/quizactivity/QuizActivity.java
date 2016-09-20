@@ -20,6 +20,7 @@ public class QuizActivity extends AppCompatActivity {
             new Question(R.string.question_asia, true),
     };
     private int mCurrentIndex=0;
+    public static final String KEY_INDEX="index";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,8 +28,19 @@ public class QuizActivity extends AppCompatActivity {
         setContentView(R.layout.activity_quiz);
         initView();
         clickListener();
+        if (savedInstanceState!=null){
+            mCurrentIndex=savedInstanceState.getInt(KEY_INDEX,0);
+        }
         updateQuestion();
+
     }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putInt(KEY_INDEX,mCurrentIndex);
+    }//临时存储问题的序号（解决屏幕旋转问题）
+
     private void updateQuestion(){
         int question=mQuestionBank[mCurrentIndex].getTextId();
         mQuestionTextview.setText(question);
