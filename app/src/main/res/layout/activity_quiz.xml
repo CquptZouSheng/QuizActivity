@@ -7,10 +7,10 @@
 
     <TextView
         android:id="@+id/question"
-        android:layout_width="300dp"
+        android:layout_width="320dp"
         android:layout_height="wrap_content"
         android:textSize="16dp"
-        android:layout_marginTop="200dp"
+        android:layout_marginTop="240dp"
         android:layout_centerHorizontal="true"/>
 
     <Button
@@ -18,18 +18,16 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/true_button"
-        android:layout_below="@+id/question"
         android:layout_marginLeft="90dp"
-        android:layout_marginTop="30dp"/>
+        android:layout_marginTop="310dp"/>
 
     <Button
         android:id="@+id/false_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/false_button"
-        android:layout_below="@+id/question"
         android:layout_marginLeft="180dp"
-        android:layout_marginTop="30dp"/>
+        android:layout_marginTop="310dp"/>
 
     <ImageButton
         android:id="@+id/next_button"
@@ -48,4 +46,10 @@
         android:layout_below="@+id/true_button"
         android:layout_alignRight="@+id/true_button"/>
 
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/next_button"
+        android:layout_centerHorizontal="true"
+        android:text="@string/cheat_button"/>
 </RelativeLayout>
