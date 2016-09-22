@@ -47,6 +47,7 @@
         android:layout_alignRight="@+id/true_button"/>
 
     <Button
+        android:id="@+id/cheat_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/next_button"

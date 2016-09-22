@@ -1,5 +1,6 @@
 package com.zou.android.quizactivity;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -9,7 +10,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class QuizActivity extends AppCompatActivity {
-    private Button mTrueButton,mFalseButton;
+    private Button mTrueButton,mFalseButton,mCheatButton;
     private ImageButton mNextButton,mPreButton;
     private TextView mQuestionTextview;
     private Question mQuestionBank[]=new Question[]{
@@ -52,6 +53,7 @@ public class QuizActivity extends AppCompatActivity {
         mFalseButton= (Button) findViewById(R.id.false_button);
         mNextButton= (ImageButton) findViewById(R.id.next_button);
         mPreButton= (ImageButton) findViewById(R.id.pre_button);
+        mCheatButton= (Button) findViewById(R.id.cheat_button);
     }//View初始实例化
 
     private void clickListener(){
@@ -89,6 +91,15 @@ public class QuizActivity extends AppCompatActivity {
             public void onClick(View v) {
                 mCurrentIndex=(mCurrentIndex+1)%mQuestionBank.length;
                 updateQuestion();
+            }
+        });
+        mCheatButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Boolean answerIsTrue=mQuestionBank[mCurrentIndex].isAnswerTrue();
+                Intent intent=new Intent(QuizActivity.this,CheatActivity.class);
+                intent.putExtra("answer_is_true",answerIsTrue);
+                startActivity(intent);
             }
         });
     }//点击事件
