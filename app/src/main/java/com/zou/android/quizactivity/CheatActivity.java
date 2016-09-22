@@ -1,5 +1,6 @@
 package com.zou.android.quizactivity;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -26,12 +27,19 @@ public class CheatActivity extends AppCompatActivity {
                 else {
                     mAnswerTextView.setText(R.string.false_button);
                 }
+                setAnswerShowResult(true);
             }
         });
+    }
+
+    private void setAnswerShowResult(Boolean isAnswerShown) {
+        Intent intent=new Intent();
+        intent.putExtra("answer_shown",isAnswerShown);
+        setResult(RESULT_OK,intent);
     }
 
     private void initView() {
         mAnswerTextView= (TextView) findViewById(R.id.answer_text_view);
         mShowAnswer= (Button) findViewById(R.id.show_answer_button);
-    }
+    }//初始化View
 }

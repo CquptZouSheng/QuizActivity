@@ -22,6 +22,20 @@ public class QuizActivity extends AppCompatActivity {
     };
     private int mCurrentIndex=0;
     public static final String KEY_INDEX="index";
+    private Boolean mIsCheater;
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (resultCode!=RESULT_OK){
+            return;
+        }
+        if (requestCode==0){
+            if (data==null){
+                return;
+            }
+            mIsCheater=getIntent().getBooleanExtra("answer_shown",false);
+        }
+    }//返回用户是否作弊
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -99,20 +113,23 @@ public class QuizActivity extends AppCompatActivity {
                 Boolean answerIsTrue=mQuestionBank[mCurrentIndex].isAnswerTrue();
                 Intent intent=new Intent(QuizActivity.this,CheatActivity.class);
                 intent.putExtra("answer_is_true",answerIsTrue);
-                startActivity(intent);
+                startActivityForResult(intent,0);
             }
         });
     }//点击事件
 
-    private void checkAnswer(boolean userPressedTrue){
-        boolean answerIsTrue=mQuestionBank[mCurrentIndex].isAnswerTrue();
-        int messageId=0;
-        if (userPressedTrue==answerIsTrue){
-            messageId=R.string.correct_toast;
+    private void checkAnswer(boolean userPressedTrue) {
+        boolean answerIsTrue = mQuestionBank[mCurrentIndex].isAnswerTrue();
+        int messageId = 0;
+        if (mIsCheater) {
+            messageId = R.string.judgment_toast;
+        } else {
+            if (userPressedTrue == answerIsTrue) {
+                messageId = R.string.correct_toast;
+            } else {
+                messageId = R.string.incorrect_toast;
+            }
         }
-        else{
-            messageId=R.string.incorrect_toast;
-        }
-        Toast.makeText(this,messageId,Toast.LENGTH_SHORT).show();
-    }
+        Toast.makeText(this, messageId, Toast.LENGTH_SHORT).show();
+    }//返回答案是否正确
 }
