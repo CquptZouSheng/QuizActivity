@@ -3,6 +3,7 @@ package com.zou.android.quizactivity;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -23,6 +24,7 @@ public class QuizActivity extends AppCompatActivity {
     private int mCurrentIndex=0;
     public static final String KEY_INDEX="index";
     private Boolean mIsCheater;
+    public static final String TAG="QuizActivity";
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -33,7 +35,7 @@ public class QuizActivity extends AppCompatActivity {
             if (data==null){
                 return;
             }
-            mIsCheater=getIntent().getBooleanExtra("answer_shown",false);
+            mIsCheater=data.getBooleanExtra("answer_shown",false);
         }
     }//返回用户是否作弊
 

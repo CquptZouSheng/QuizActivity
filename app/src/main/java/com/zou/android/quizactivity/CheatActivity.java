@@ -36,7 +36,7 @@ public class CheatActivity extends AppCompatActivity {
         Intent intent=new Intent();
         intent.putExtra("answer_shown",isAnswerShown);
         setResult(RESULT_OK,intent);
-    }
+    }//传递作弊数据回QuizAcitivity
 
     private void initView() {
         mAnswerTextView= (TextView) findViewById(R.id.answer_text_view);
