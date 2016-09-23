@@ -12,11 +12,17 @@ public class CheatActivity extends AppCompatActivity {
     private Boolean mAnswerIsTrue;
     private TextView mAnswerTextView;
     private Button mShowAnswer;
+    public static final String KEY_INDEX="index";
+    public static Boolean mAnswerIsShown;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cheat);
         mAnswerIsTrue=getIntent().getBooleanExtra("answer_is_true",false);
+        mAnswerIsShown=false;
+        if (savedInstanceState!=null){
+            mAnswerIsShown=savedInstanceState.getBoolean(KEY_INDEX,false);
+        }
         initView();
         mShowAnswer.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -27,9 +33,16 @@ public class CheatActivity extends AppCompatActivity {
                 else {
                     mAnswerTextView.setText(R.string.false_button);
                 }
+                mAnswerIsShown=true;
                 setAnswerShowResult(true);
             }
         });
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putBoolean(KEY_INDEX,mAnswerIsShown);
     }
 
     private void setAnswerShowResult(Boolean isAnswerShown) {

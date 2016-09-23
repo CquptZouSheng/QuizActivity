@@ -23,7 +23,7 @@ public class QuizActivity extends AppCompatActivity {
     };
     private int mCurrentIndex=0;
     public static final String KEY_INDEX="index";
-    private Boolean mIsCheater;
+    private Boolean mIsCheater=false;
     public static final String TAG="QuizActivity";
 
     @Override
@@ -36,6 +36,7 @@ public class QuizActivity extends AppCompatActivity {
                 return;
             }
             mIsCheater=data.getBooleanExtra("answer_shown",false);
+            Log.d(TAG, mIsCheater+"");
         }
     }//返回用户是否作弊
 
