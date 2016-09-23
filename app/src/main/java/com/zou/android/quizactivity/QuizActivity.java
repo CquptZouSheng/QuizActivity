@@ -89,6 +89,7 @@ public class QuizActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 mCurrentIndex=(mCurrentIndex+1)%mQuestionBank.length;
+                mIsCheater=false;
                 updateQuestion();
             }
         });
@@ -96,6 +97,7 @@ public class QuizActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 mCurrentIndex=mCurrentIndex-1;
+                mIsCheater=false;
                 if (mCurrentIndex==-1){
                     mCurrentIndex=mQuestionBank.length-1;
                 }
@@ -107,6 +109,7 @@ public class QuizActivity extends AppCompatActivity {
             public void onClick(View v) {
                 mCurrentIndex=(mCurrentIndex+1)%mQuestionBank.length;
                 updateQuestion();
+                mIsCheater=false;
             }
         });
         mCheatButton.setOnClickListener(new View.OnClickListener() {
