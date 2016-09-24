@@ -23,6 +23,7 @@ public class QuizActivity extends AppCompatActivity {
     };
     private int mCurrentIndex=0;
     public static final String KEY_INDEX="index";
+    public static final String KEY_INDEX_CHEAT="CHEAT";
     private Boolean mIsCheater=false;
     public static final String TAG="QuizActivity";
 
@@ -47,6 +48,7 @@ public class QuizActivity extends AppCompatActivity {
         clickListener();
         if (savedInstanceState!=null){
             mCurrentIndex=savedInstanceState.getInt(KEY_INDEX,0);
+            mIsCheater=savedInstanceState.getBoolean(KEY_INDEX_CHEAT,false);
         }
         updateQuestion();
 
@@ -56,6 +58,7 @@ public class QuizActivity extends AppCompatActivity {
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.putInt(KEY_INDEX,mCurrentIndex);
+        outState.putBoolean(KEY_INDEX_CHEAT,mIsCheater);
     }//临时存储问题的序号（解决屏幕旋转问题）
 
     private void updateQuestion(){
