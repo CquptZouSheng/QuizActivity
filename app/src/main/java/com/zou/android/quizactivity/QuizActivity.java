@@ -3,7 +3,6 @@ package com.zou.android.quizactivity;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -24,8 +23,7 @@ public class QuizActivity extends AppCompatActivity {
     private int mCurrentIndex=0;
     public static final String KEY_INDEX="index";
     public static final String KEY_INDEX_CHEAT="CHEAT";
-    private Boolean mIsCheater=false;
-    public static final String TAG="QuizActivity";
+    private boolean mIsCheater[]={false,false,false,false,false};
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -36,7 +34,7 @@ public class QuizActivity extends AppCompatActivity {
             if (data==null){
                 return;
             }
-            mIsCheater=data.getBooleanExtra("answer_shown",false);
+            mIsCheater[mCurrentIndex]=data.getBooleanExtra("answer_shown",false);
         }
     }//返回用户是否作弊
 
@@ -48,7 +46,7 @@ public class QuizActivity extends AppCompatActivity {
         clickListener();
         if (savedInstanceState!=null){
             mCurrentIndex=savedInstanceState.getInt(KEY_INDEX,0);
-            mIsCheater=savedInstanceState.getBoolean(KEY_INDEX_CHEAT,false);
+            mIsCheater=savedInstanceState.getBooleanArray(KEY_INDEX_CHEAT);
         }
         updateQuestion();
 
@@ -58,7 +56,7 @@ public class QuizActivity extends AppCompatActivity {
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.putInt(KEY_INDEX,mCurrentIndex);
-        outState.putBoolean(KEY_INDEX_CHEAT,mIsCheater);
+        outState.putBooleanArray(KEY_INDEX_CHEAT,mIsCheater);
     }//临时存储问题的序号（解决屏幕旋转问题）
 
     private void updateQuestion(){
@@ -92,7 +90,6 @@ public class QuizActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 mCurrentIndex=(mCurrentIndex+1)%mQuestionBank.length;
-                mIsCheater=false;
                 updateQuestion();
             }
         });
@@ -100,7 +97,6 @@ public class QuizActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 mCurrentIndex=mCurrentIndex-1;
-                mIsCheater=false;
                 if (mCurrentIndex==-1){
                     mCurrentIndex=mQuestionBank.length-1;
                 }
@@ -112,7 +108,6 @@ public class QuizActivity extends AppCompatActivity {
             public void onClick(View v) {
                 mCurrentIndex=(mCurrentIndex+1)%mQuestionBank.length;
                 updateQuestion();
-                mIsCheater=false;
             }
         });
         mCheatButton.setOnClickListener(new View.OnClickListener() {
@@ -129,7 +124,7 @@ public class QuizActivity extends AppCompatActivity {
     private void checkAnswer(boolean userPressedTrue) {
         boolean answerIsTrue = mQuestionBank[mCurrentIndex].isAnswerTrue();
         int messageId = 0;
-        if (mIsCheater) {
+        if (mIsCheater[mCurrentIndex]) {
             messageId = R.string.judgment_toast;
         } else {
             if (userPressedTrue == answerIsTrue) {
