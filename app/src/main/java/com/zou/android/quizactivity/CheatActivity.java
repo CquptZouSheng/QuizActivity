@@ -14,6 +14,7 @@ public class CheatActivity extends AppCompatActivity {
     private Button mShowAnswer;
     public static final String KEY_INDEX="index";
     public static Boolean mAnswerIsShown;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,7 +35,6 @@ public class CheatActivity extends AppCompatActivity {
                     mAnswerTextView.setText(R.string.false_button);
                 }
                 mAnswerIsShown=true;
-                setAnswerShowResult(true);
             }
         });
     }
@@ -45,11 +45,13 @@ public class CheatActivity extends AppCompatActivity {
         outState.putBoolean(KEY_INDEX,mAnswerIsShown);
     }
 
-    private void setAnswerShowResult(Boolean isAnswerShown) {
+    @Override
+    public void onBackPressed() {
         Intent intent=new Intent();
-        intent.putExtra("answer_shown",isAnswerShown);
+        intent.putExtra("answer_shown",mAnswerIsShown);
         setResult(RESULT_OK,intent);
-    }//传递作弊数据回QuizAcitivity
+        finish();
+    }//返回是否作弊的数据
 
     private void initView() {
         mAnswerTextView= (TextView) findViewById(R.id.answer_text_view);

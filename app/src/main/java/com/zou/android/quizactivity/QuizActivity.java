@@ -36,7 +36,6 @@ public class QuizActivity extends AppCompatActivity {
                 return;
             }
             mIsCheater=data.getBooleanExtra("answer_shown",false);
-            Log.d(TAG, mIsCheater+"");
         }
     }//返回用户是否作弊
 
